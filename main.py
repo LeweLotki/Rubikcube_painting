@@ -1,19 +1,22 @@
 from PIL import Image, ImageDraw
 import random
 
-im = Image.open('wenus.jpg')  
+name = str(input('enter a file name: '))
+im = Image.open('F:\\art_programs\images2\\'+ name)  
+
+width, height = im.size
+print(width, height)
+
 n = 0
 R = 0
 G = 0
 B = 0
 cord1 = 0
 cord2 = 0
-m = 5
+m = int(input('choose the level of precision \n where 1 is most precisious \n and every number higher than 1 is less precisious: '))
 q = 1
-width, height = im.size
-print(width, height)
 
-#pamietaj o average samplingu
+#pamietaj o average samplingu(ustawiłem jako 2 razy m)
 
 colors = {'red' : (255, 0, 0),
           'green' : (0,255,0),
@@ -24,20 +27,7 @@ colors = {'red' : (255, 0, 0),
           #,'black' : ( 0, 0, 0 )
           }
 
-def classify(rgb_tuple):
-    # eg. rgb_tuple = (2,44,300)
-
-    # add as many colors as appropriate here, but for
-    # the stated use case you just want to see if your
-    # pixel is 'more red' or 'more green'
-    colors = {'red' : (255, 0, 0),
-              'green' : (0,255,0),
-              'white' : ( 255, 255, 255 ),
-              'blue' : ( 0, 0, 255 ),
-              'yellow' : ( 255, 255, 0 ),
-              'orange' : ( 255, 69, 0 )
-              #,'black' : ( 0, 0, 0 )
-              }
+def classify(rgb_tuple,colors):
 
     manhattan = lambda x,y : abs(x[0] - y[0]) + abs(x[1] - y[1]) + abs(x[2] - y[2]) 
     distances = {k: manhattan(v, rgb_tuple) for k, v in colors.items()}
@@ -49,7 +39,7 @@ def average(cord1,cord2,m):
     R = 0
     G = 0
     B = 0
-    while n < 10:
+    while n < 2*m:
         x = random.randint(cord1, cord1 + m)
         y = random.randint(cord2, cord2 + m)
         pixel = im.getpixel((x,y))
@@ -88,7 +78,7 @@ while True:
     if cord2 + m >= height:
         break
     else:
-        draw(cord1,cord2,m,colors[classify(average(cord1,cord2,m))])
+        draw(cord1,cord2,m,colors[classify(average(cord1,cord2,m),colors)])
         cord1 += m
         #print(cord1,cord2)
         
