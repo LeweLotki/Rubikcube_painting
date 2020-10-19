@@ -7,15 +7,22 @@ im = Image.open('F:\\art_programs\images2\\'+ name)
 width, height = im.size
 print(width, height)
 
+done = ''
 n = 0
 R = 0
 G = 0
 B = 0
 cord1 = 0
 cord2 = 0
-m = int(input('choose the level of precision \n where 1 is most precisious \n and every number higher than 1 is less precisious: '))
+m = int(input('\n choose the level of precision \n where 1 is most precisious \n and every number higher than 1 is less precisious: '))
 q = 1
-
+a = ''
+while a!='y' and a!='n':
+    a = str(input(' Do you want to turn on subdivide function?(y/n) '))
+if a=='y':
+    done = True
+else:
+    done = False
 #pamietaj o average samplingu(ustawiłem jako 2 razy m)
 
 colors = {'red' : (255, 0, 0),
@@ -87,7 +94,7 @@ im.save('F:\\art_programs\croped\saved.png')
 cord1 = 0
 cord2 = 0
 
-while True: 
+while done: 
     if cord1 + 3*m >= width:
         cord1 = 0
         cord2 += 3*m
