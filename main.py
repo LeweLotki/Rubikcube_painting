@@ -106,8 +106,7 @@ while done:
         cord1 += 3*m
         q += 1
         #print(cord1,cord2)
-        
-        
+im.close()
         
         
         
